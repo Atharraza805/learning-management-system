@@ -170,17 +170,24 @@ CREATE TABLE messages (
 );
 
 -- Create study_materials table
-CREATE TABLE assignments (
-    assignment_id INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE study_materials (
+    material_id INT AUTO_INCREMENT PRIMARY KEY,
     course_id INT NOT NULL,
     title VARCHAR(255),
     description TEXT,
-    due_date DATE,
-    max_marks INT,
-    CONSTRAINT fk_assignments_course
+    file_path VARCHAR(255),
+    uploaded_by INT NOT NULL,
+    upload_date DATETIME,
+    CONSTRAINT fk_study_materials_course
         FOREIGN KEY (course_id)
         REFERENCES courses(course_id)
         ON DELETE CASCADE
+        ON UPDATE CASCADE,
+        
+    CONSTRAINT fk_study_materials_user
+        FOREIGN KEY (uploaded_by)
+        REFERENCES users(user_id)
+        ON DELETE SET NULL
         ON UPDATE CASCADE
 );
 
