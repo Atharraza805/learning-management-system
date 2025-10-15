@@ -50,7 +50,7 @@ A comprehensive Learning Management System built with **Java Swing** and **MySQL
 
 1. **Clone the repository**
 ```bash
-   git clone https://github.com/YOUR-USERNAME/learning-management-system.git
+   git clone https://github.com/Atharraza805/learning-management-system.git
    cd learning-management-system
 ```
 
@@ -151,6 +151,39 @@ CREATE TABLE submissions (
     FOREIGN KEY (assignment_id) REFERENCES assignments(assignment_id) ON DELETE CASCADE,
     FOREIGN KEY (student_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
+
+-- Create messages table
+CREATE TABLE messages (
+    message_id INT AUTO_INCREMENT PRIMARY KEY,
+    course_id INT NOT NULL,
+    sender_id INT NOT NULL,
+    subject VARCHAR(255),
+    message_text TEXT,
+    sent_date DATETIME,
+    CONSTRAINT fk_messages_course 
+        FOREIGN KEY (course_id) REFERENCES courses(course_id)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+        
+    CONSTRAINT fk_messages_sender 
+        FOREIGN KEY (sender_id) REFERENCES users(user_id)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- Create study_materials table
+CREATE TABLE assignments (
+    assignment_id INT AUTO_INCREMENT PRIMARY KEY,
+    course_id INT NOT NULL,
+    title VARCHAR(255),
+    description TEXT,
+    due_date DATE,
+    max_marks INT,
+    CONSTRAINT fk_assignments_course
+        FOREIGN KEY (course_id)
+        REFERENCES courses(course_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
 
 -- Insert sample data
 INSERT INTO users (username, password, full_name, email, role) VALUES
