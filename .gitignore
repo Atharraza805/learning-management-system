@@ -11,7 +11,9 @@
 .mtj.tmp/
 
 # Package Files #
+# Ignore all jars except those inside lib/
 *.jar
+!lib/*.jar
 *.war
 *.nar
 *.ear
